@@ -14,7 +14,7 @@
 ##  along with this program; if not, write to the Free Software
 ##  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-##  $Id: textProtocol.r,v 1.18 2009/11/04 17:02:44 burgerm Exp $
+##  $Id: textProtocol.r 13377 2010-08-30 07:51:02Z Mario $
 
 
 printTextProtocol <- function(testData,

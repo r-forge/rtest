@@ -14,16 +14,21 @@
 %%  along with this program; if not, write to the Free Software
 %%  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-%%  $Id: runit.Rd,v 1.23 2009/11/25 15:23:12 burgerm Exp $
+%%  $Id: runit.Rd 13493 2010-09-02 12:49:08Z Mario $
 
 \encoding{latin1}
 \name{runTestSuite}
 \alias{runTestSuite}
+\alias{runTestSuite.default}
+\alias{runTestSuite.RUnitTestSuite}
 \concept{test suite}
 \alias{runTestFile}
 \concept{test runner}
 \alias{defineTestSuite}
+\alias{unitTestSuite}
 \alias{isValidTestSuite}
+\alias{isValidTestSuite.default}
+\alias{isValidTestSuite.RUnitTestSuite}
 \title{Definition and execution of RUnit test suites.}
 
 \usage{
@@ -31,9 +36,14 @@ defineTestSuite(name, dirs, testFileRegexp = "^runit.+\\\\.[rR]$",
                 testFuncRegexp = "^test.+",
                 rngKind = "Marsaglia-Multicarry",
                 rngNormalKind = "Kinderman-Ramage")
-isValidTestSuite(testSuite)
-runTestSuite(testSuites, useOwnErrorHandler = TRUE, 
-             verbose = getOption("RUnit")$verbose)
+unitTestSuite(name, dirs,
+                rngKind = "Marsaglia-Multicarry",
+                rngNormalKind = "Kinderman-Ramage",
+                testFileRegexp = "^runit.+\\\\.[rR]$",
+                testFuncRegexp = "^test.+",
+                ...)
+isValidTestSuite(self)
+runTestSuite(testSuite, ...)
 runTestFile(absFileName, useOwnErrorHandler = TRUE,
             testFuncRegexp = "^test.+",
             rngKind = "Marsaglia-Multicarry",
@@ -50,8 +60,8 @@ runTestFile(absFileName, useOwnErrorHandler = TRUE,
     for possible options).}
   \item{rngNormalKind}{name of a valid rnorm RNG version (see 
     \code{\link[base:Random]{RNGkind}} for possible options).}
-  \item{testSuite}{A single object of class test suite.}
-  \item{testSuites}{A single object of class test suite or a list of
+  \item{self}{A single object, of class RUnitTestSuite or similar.}
+  \item{testSuite}{A single object of class test suite or a list of
     test suite objects.}
   \item{useOwnErrorHandler}{If \code{TRUE} the RUnit framework installs
     its own error handler during test case execution (but reinstalls the
@@ -62,6 +72,7 @@ runTestFile(absFileName, useOwnErrorHandler = TRUE,
   begin/end comments for each test function. Queried from 
     global options set for RUnit at package load.}
   \item{absFileName}{Absolute file name of a test function.}
+  \item{...}{passed to included functions or for later extensions.}
 }
 
 \description{

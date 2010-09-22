@@ -12,7 +12,7 @@
 ##
 ## Version
 ## =====================================
-##  $Id: NAMESPACE,v 1.7 2009/04/22 13:46:38 burgerm Exp $
+##  $Id: NAMESPACE 13395 2010-08-30 12:59:44Z Mario $
 ##
 ##
 ######################################################################
@@ -27,8 +27,8 @@ export(".setUp",
        "checkEqualsNumeric",
        "checkException",
        "checkIdentical",
-       "DEACTIVATED",
        "defineTestSuite",
+       "DEACTIVATED",
        "getErrors",
        "inspect",
        "isValidTestSuite",
@@ -44,3 +44,17 @@ export(".setUp",
 
 S3method(print, RUnitTestData)
 S3method(summary, RUnitTestData)
+
+## base class implementations
+S3method(isValidTestSuite, default)
+S3method(isValidTestSuite, RBaseTestSuite)
+S3method(runTestSuite, default)
+S3method(runTestSuite, RBaseTestSuite)
+
+export("unitTestSuite")
+S3method(runSingleValidTestSuite, RUnitTestSuite)
+S3method(isValidTestSuite, RUnitTestSuite)
+
+export("systemTestSuite")
+S3method(runSingleValidTestSuite, RSystemTestSuite)
+S3method(isValidTestSuite, RSystemTestSuite)

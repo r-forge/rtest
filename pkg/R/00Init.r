@@ -15,7 +15,7 @@
 ##  along with this program; if not, write to the Free Software
 ##  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-##  $Id: 00Init.r,v 1.9 2009/11/05 18:53:26 burgerm Exp $
+##  $Id: 00Init.r 13377 2010-08-30 07:51:02Z Mario $
 
 
 .onLoad <- function(libname, pkgname)

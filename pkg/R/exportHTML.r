@@ -14,7 +14,7 @@
 ##  along with this program; if not, write to the Free Software
 ##  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-##  $Id: exportHTML.r,v 1.11 2009/04/16 09:44:51 burgerm Exp $
+##  $Id: exportHTML.r 13377 2010-08-30 07:51:02Z Mario $
 
 
 plotConnection.trackInfo <- function(con, pngfile, ...)

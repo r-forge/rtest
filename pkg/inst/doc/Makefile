@@ -3,7 +3,7 @@
 ##  
 ##  utility 
 ##  create PDF document from dvi (usefull if R CMD INSTALL fails to build the pdf)
-##  $Id: Makefile,v 1.1 2005/09/29 12:16:08 burger Exp $
+##  $Id: Makefile 13377 2010-08-30 07:51:02Z Mario $
 ##
 all:       RUnit.pdf clean
 RUnit.pdf: RUnit.ps

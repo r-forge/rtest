@@ -14,7 +14,7 @@
 ##  along with this program; if not, write to the Free Software
 ##  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ##
-##  $Id: runitRUnit.r,v 1.17 2009/11/05 20:07:59 burgerm Exp $
+##  $Id: runitRUnit.r 13377 2010-08-30 07:51:02Z Mario $
 
 
 cat("\n\nRUnit test cases for 'RUnit:check' functions\n\n")

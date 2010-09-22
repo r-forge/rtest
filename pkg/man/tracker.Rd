@@ -14,7 +14,7 @@
 %%  along with this program; if not, write to the Free Software
 %%  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-%%  $Id: tracker.Rd,v 1.15 2009/11/04 17:06:56 burgerm Exp $
+%%  $Id: tracker.Rd 13377 2010-08-30 07:51:02Z Mario $
 
 \encoding{latin1}
 \name{tracker}
