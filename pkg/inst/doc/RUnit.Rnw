@@ -1,6 +1,6 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %
-%  $Id: RUnit.Rnw 13377 2010-08-30 07:51:02Z Mario $
+%  $Id$
 %
 %
 %\VignetteIndexEntry{RUnit primer}

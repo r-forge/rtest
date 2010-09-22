@@ -14,7 +14,7 @@
 ##  along with this program; if not, write to the Free Software
 ##  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ##
-##  $Id: runitS4.r 13377 2010-08-30 07:51:02Z Mario $
+##  $Id$
 
 
 cat("\n\nRUnit test cases for S4 class inheritance\n\n")
