@@ -54,7 +54,7 @@ printJUnitProtocol <- function(testData,
 
   ## create the xml document
   rootNode <- xmlNode('testsuites')
-  
+
   for(tsName in names(testData)) {
     errInfo <- testData[[tsName]]
 
@@ -66,7 +66,6 @@ printJUnitProtocol <- function(testData,
                                'errors' = errInfo$nErr,
                                'failures' = errInfo$nFail,
                                'skip' = errInfo$nDeactivated))
-    addChildren(rootNode, kids=list(testSuiteNode))
 
     res <- errInfo$sourceFileResults
     for(testFileName in names(res)) {
@@ -80,7 +79,6 @@ printJUnitProtocol <- function(testData,
                                   'classname'=testFileName,
                                   'name'=testFuncName,
                                   'time'=testFuncInfo$time))
-        addChildren(testSuiteNode, kids=list(testCaseNode))
 
         if(testFuncInfo$kind != 'success') {
           text <- paste('![CDATA[', testFuncInfo$traceBack, ']]', sep='')
@@ -88,14 +86,17 @@ printJUnitProtocol <- function(testData,
                                  attrs=c(
                                    'type'=testFuncInfo$kind,
                                    'message'=testFuncInfo$msg))
-          addChildren(testCaseNode, kids=list(failureNode))
+          testCaseNode <- addChildren(testCaseNode, kids=list(failureNode))
         }
+
+        testSuiteNode <- addChildren(testSuiteNode, kids=list(testCaseNode))
       }
-      
+
     }
+    rootNode <- addChildren(rootNode, kids=list(testSuiteNode))
   }
 
   saveXML(rootNode, fileName)
-  
+
   return(invisible(TRUE))
 }
