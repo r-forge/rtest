@@ -20,6 +20,7 @@
 \name{textProtocol}
 \alias{printTextProtocol}
 \alias{printHTMLProtocol}
+\alias{printJUnitProtocol}
 \alias{print.RUnitTestData}
 \alias{summary.RUnitTestData}
 \alias{getErrors}
@@ -34,6 +35,7 @@
                     separateFailureList = TRUE,
                     traceBackCutOff = 9,
                     testFileToLinkMap = function(x) x )
+  printJUnitProtocol(testData, fileName = "")
   print.RUnitTestData(x, ...)
   summary.RUnitTestData(object, ...)
   getErrors(testData)
