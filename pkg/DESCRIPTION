@@ -1,9 +1,9 @@
-Package:      RUnit
+Package:      rtest
 Version:      0.5.1
 Date:         2010/09/24
 Title:        R Unit test framework
 Author:       Matthias Burger <burgerm@users.sourceforge.net>, Klaus Juenemann <k.junemann@gmx.net>, Thomas Koenig <thomas.koenig@epigenomics.com>, Mario Frasca <mfrasca@users.sourceforge.net>
-Maintainer:   Matthias Burger <burgerm@users.sourceforge.net>
+Maintainer:   Mario Frasca <mariotomo@gmail.com>
 LazyLoad:     yes
 Depends:      R (>= 2.5.0), utils (>= 2.5.0), methods (>= 2.5.0), XML (>= 3.1)
 Description:  R functions implementing a standard Unit Testing framework, with additional code inspection and report generation tools
