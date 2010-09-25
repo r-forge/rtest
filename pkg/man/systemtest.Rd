@@ -1,4 +1,4 @@
-%%  RUnit : A unit test framework for the R programming language
+%%  rtest : unit and system testing for R
 %%  Copyright (C) 2003-2009  Thomas Koenig, Matthias Burger, Klaus Juenemann
 %%
 %%  This program is free software; you can redistribute it and/or modify
@@ -160,12 +160,12 @@ Thomas \enc{König}{Koenig}, Klaus \enc{Jünemann}{Juenemann}
 
 ## run some test suite
 myTestSuite <- defineTestSuite("RUnit Example",
-                               system.file("examples", package = "RUnit"),
+                               system.file("examples", package = "rtest"),
                                testFileRegexp = "correctTestCase.r")
 testResult <- runTestSuite(myTestSuite)
 
 ##  same but without the logger being involved
-## source(file.path(system.file("examples", package = "RUnit"), 
+## source(file.path(system.file("examples", package = "rtest"), 
 ##                  "correctTestCase.r"))
 ## test.correctTestCase()
 
@@ -176,7 +176,7 @@ printTextProtocol(testResult, showDetails = TRUE)
 
 ##  use current default RNGs
 myTestSuite1 <- defineTestSuite("RUnit Example",
-                               system.file("examples", package = "RUnit"),
+                               system.file("examples", package = "rtest"),
                                testFileRegexp = "correctTestCase.r",
                                rngKind = "Mersenne-Twister",
                                rngNormalKind = "Inversion")
@@ -186,7 +186,7 @@ testResult1 <- runTestSuite(myTestSuite)
 
 ##  for single test files, e.g. outside a package context
 testResult2 <- runTestFile(file.path(system.file("examples", 
-                                                 package = "RUnit"),
+                                                 package = "rtest"),
                                      "correctTestCase.r"))
 printTextProtocol(testResult2, showDetails = TRUE)
 }

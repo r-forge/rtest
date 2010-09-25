@@ -1,4 +1,4 @@
-%%  RUnit : A unit test framework for the R programming language
+%%  rtest : unit and system testing for R
 %%  Copyright (C) 2003-2009  Thomas Koenig, Matthias Burger, Klaus Juenemann
 %%
 %%  This program is free software; you can redistribute it and/or modify
@@ -115,7 +115,7 @@
 
 ## run some test suite
 myTestSuite <- defineTestSuite("RUnit Example",
-                               system.file("examples", package = "RUnit"),
+                               system.file("examples", package = "rtest"),
                                testFileRegexp = "correctTestCase.r")
 testResult <- runTestSuite(myTestSuite)
 

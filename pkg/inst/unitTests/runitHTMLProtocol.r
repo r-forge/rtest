@@ -1,4 +1,4 @@
-##  RUnit : A unit test framework for the R programming language
+##  rtest : unit and system testing for R
 ##  Copyright (C) 2003-2009  Thomas Koenig, Matthias Burger, Klaus Juenemann
 ##
 ##  This program is free software; you can redistribute it and/or modify
@@ -26,7 +26,7 @@ testRUnit.printHTMLProtocol <- function()
   ##  this is not safe, think about assigning .logger to new environment
   ##  copy baseenv() .logger
   tmp <- get(".testLogger", envir = .GlobalEnv)
-  testCaseDir <- file.path(system.file(package="RUnit"), "examples")
+  testCaseDir <- file.path(system.file(package="rtest"), "examples")
   testSuiteInternal <- defineTestSuite("RUnit Self Test", testCaseDir, "correctTestCase.r")
   testData2 <- runTestSuite(testSuiteInternal, useOwnErrorHandler=FALSE)
 

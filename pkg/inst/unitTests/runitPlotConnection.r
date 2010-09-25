@@ -1,4 +1,4 @@
-##  RUnit : A unit test framework for the R programming language
+##  rtest : unit and system testing for R
 ##  Copyright (C) 2003-2009  Thomas Koenig, Matthias Burger, Klaus Juenemann
 ##
 ##  This program is free software; you can redistribute it and/or modify
@@ -35,7 +35,7 @@ testRUnit.plotConnection <- function()
   conMat <- matrix(0, nrow=5, ncol=5)
   timeStamp <- format(Sys.time(), "%y%m%d-%H%M")
   tmpPlotFile <- file.path(tempdir(), paste(timeStamp, "connectionPlot.png", sep="_"))
-  ret <- RUnit:::plotConnection.trackInfo(conMat, tmpPlotFile)
+  ret <- rtest:::plotConnection.trackInfo(conMat, tmpPlotFile)
   checkTrue( is(ret, "NULL"))
   checkTrue( file.exists(tmpPlotFile))
   ##  clean up
@@ -46,7 +46,7 @@ testRUnit.plotConnection <- function()
   conMat <- matrix(sample(1:3, num^2, replace=TRUE), nrow=num, ncol=num)
   timeStamp <- format(Sys.time(), "%y%m%d-%H%M")
   tmpPlotFile <- file.path(tempdir(), paste(timeStamp, "connectionPlot2.png", sep="_"))
-  ret <- RUnit:::plotConnection.trackInfo(conMat, tmpPlotFile)
+  ret <- rtest:::plotConnection.trackInfo(conMat, tmpPlotFile)
   checkTrue( is(ret, "NULL"))
   checkTrue( file.exists(tmpPlotFile))
   ##  clean up
@@ -57,7 +57,7 @@ testRUnit.plotConnection <- function()
   conMat <- matrix(sample(1:3, num*colNum, replace=TRUE), nrow=num, ncol=colNum)
   timeStamp <- format(Sys.time(), "%y%m%d-%H%M")
   tmpPlotFile <- file.path(tempdir(), paste(timeStamp, "connectionPlot3.png", sep="_"))
-  ret <- RUnit:::plotConnection.trackInfo(conMat, tmpPlotFile)
+  ret <- rtest:::plotConnection.trackInfo(conMat, tmpPlotFile)
   checkTrue( is(ret, "NULL"))
   checkTrue( file.exists(tmpPlotFile))
   ##  clean up
@@ -68,7 +68,7 @@ testRUnit.plotConnection <- function()
   conMat <- matrix(sample(0:3, num*colNum, replace=TRUE), nrow=num, ncol=colNum)
   timeStamp <- format(Sys.time(), "%y%m%d-%H%M")
   tmpPlotFile <- file.path(tempdir(), paste(timeStamp, "connectionPlot4.png", sep="_"))
-  ret <- RUnit:::plotConnection.trackInfo(conMat, tmpPlotFile)
+  ret <- rtest:::plotConnection.trackInfo(conMat, tmpPlotFile)
   checkTrue( is(ret, "NULL"))
   checkTrue( file.exists(tmpPlotFile))
   ##  clean up

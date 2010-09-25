@@ -1,4 +1,4 @@
-##  RUnit : A unit test framework for the R programming language
+##  rtest : unit and system testing for R
 ##  Copyright (C) 2003-2009  Thomas Koenig, Matthias Burger, Klaus Juenemann
 ##
 ##  This program is free software; you can redistribute it and/or modify
@@ -530,7 +530,7 @@ testRUnit.defineTestSuite <- function()
   ##@edescr
   
   ##  correct working
-  testSuite <- defineTestSuite("RUnit Example", system.file("examples", package="RUnit"), 
+  testSuite <- defineTestSuite("RUnit Example", system.file("examples", package="rtest"), 
                                testFileRegexp="correctTestCase.r")
   
   ##  this also works for S3 objects
@@ -554,7 +554,7 @@ testRUnit.isValidTestSuite <- function()
   ##@edescr
   
   ##  correct working
-  testSuite <- defineTestSuite("RUnit Example", system.file("examples", package="RUnit"), testFileRegexp="correctTestCase.r")
+  testSuite <- defineTestSuite("RUnit Example", system.file("examples", package="rtest"), testFileRegexp="correctTestCase.r")
   checkTrue( isValidTestSuite(testSuite))
   
   ##  error handling
@@ -599,7 +599,7 @@ testRUnit.runTestFile <- function()
   ## test case for function runTestFile of class: none
   ##@edescr
 
-  testFile <- file.path(system.file("examples", package="RUnit"), "correctTestCase.r")
+  testFile <- file.path(system.file("examples", package="rtest"), "correctTestCase.r")
   checkTrue( file.exists(testFile))
 
   ## The issue: .testLogger is the hard coded logger object
@@ -634,7 +634,7 @@ testRUnit.runTestSuite <- function()
   ## test case for function runTestSuite of class: none
   ##@edescr
 
-  testSuiteTest <- defineTestSuite("RUnit Example", system.file("examples", package="RUnit"),
+  testSuiteTest <- defineTestSuite("RUnit Example", system.file("examples", package="rtest"),
                                    testFileRegexp="correctTestCase.r")
 
   checkTrue( isValidTestSuite(testSuiteTest))

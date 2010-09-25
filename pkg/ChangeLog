@@ -1,3 +1,63 @@
+------------------------------------------------------------------------
+
+2010-09-24 11:37:30 +0200 mariotomo
+
+	* /pkg/R/junitProtocol.r:
+	I was loosing the pointers to the newly created objects.
+
+------------------------------------------------------------------------
+2010-09-24 09:55:38 +0200 mariotomo
+	* /pkg/DESCRIPTION:
+	correcting DESCRIPTION file. it contained info relative to RUnit,
+	from which I am forking.
+
+------------------------------------------------------------------------
+2010-09-24 09:49:58 +0200 mariotomo
+	* /:
+	ignoring output of check command
+
+------------------------------------------------------------------------
+2010-09-24 09:49:15 +0200 mariotomo
+	* /pkg/DESCRIPTION
+	M /pkg/NAMESPACE
+	A /pkg/R/junitProtocol.r
+	M /pkg/man/textProtocol.Rd
+
+	tentative JUnit output
+
+------------------------------------------------------------------------
+2010-09-22 11:43:21 +0200 mariotomo
+	A /pkg/R/basesuite.r
+	A /pkg/R/systemtest.r
+	A /pkg/man/systemtest.Rd
+
+	added the backends, for base and system.
+
+------------------------------------------------------------------------
+2010-09-22 11:41:59 +0200 mariotomo
+
+	svn:keywords substitution (Id)
+
+------------------------------------------------------------------------
+2010-09-22 11:27:14 +0200 mariotomo
+
+	this is the refactored version, to this one I can add the system
+	test front end.
+
+------------------------------------------------------------------------
+
+2010-09-22 11:24:59 +0200 mariotomo
+
+	* adding the latest (actually, as of 2010-08-30) version from
+	  sourceforge. on this I am basing the fork.
+
+------------------------------------------------------------------------
+
+2010-09-10 11:42:37 +0200 stefan7th
+	* .: created the rtest project on the r-forge repository
+
+------------------------------------------------------------------------
+
 2009-04-22 15:52  burgerm
 
 	* tests/runitInspect.r: added test cases for more complex functions

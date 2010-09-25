@@ -1,5 +1,6 @@
 ######################################################################
-##  RUnit : A unit test framework for the R programming language
+##  rtest : unit and system testing for R
+##  Copyright (C) 2010  Mario Frasca
 ##  Copyright (C) 2003-2009  Thomas Koenig, Matthias Burger, Klaus Juenemann
 ##
 ##  This program is free software; you can redistribute it and/or modify
@@ -26,12 +27,12 @@
   ##@edescr
 
   ##  load required packages
-  errMsg <- paste("\nLoading required package 'methods' failed. RUnit could not be loaded.",
+  errMsg <- paste("\nLoading required package 'methods' failed. rtest could not be loaded.",
                   "\nCheck your library installation path.\n")
   require(methods) || stop(errMsg)
 
   
-  runitVersion <- packageDescription("RUnit", lib.loc=libname, fields="Version")
+  runitVersion <- packageDescription("rtest", lib.loc=libname, fields="Version")
   ##  avoid cmd check NOTEs
   assign(".testLogger", NULL, envir=.GlobalEnv)
   ##  add options to R's global options list

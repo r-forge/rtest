@@ -2,11 +2,23 @@
         **************************************************
         * 
         *
-        *       RUnit
+        *       rtest
         *
         * 
         *
         **************************************************
+
+Changes in rtest 0.5.3
+    o   deactivated tests are marked as <skipped/> in the junit output.
+
+Changes in rtest 0.5.2
+    o   producing output for Hudson
+
+Changes in rtest 0.5.1
+    o   internal release
+
+Changes in rtest 0.5.0
+    o   refactored and added a front end for system test suite.
 
 Changes in RUnit 0.4.25
     o   enable redirection of error and log messages to file, controlled via new 

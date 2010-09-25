@@ -1,4 +1,4 @@
-##  RUnit : A unit test framework for the R programming language
+##  rtest : unit and system testing for R
 ##  Copyright (C) 2003-2009  Thomas Koenig, Matthias Burger, Klaus Juenemann, Mario Frasca
 ##
 ##  This program is free software; you can redistribute it and/or modify
@@ -15,6 +15,12 @@
 ##  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 ##  $Id: htmlProtocol.r 4 2010-09-22 09:41:59Z mariotomo $
+
+
+toValidXmlString <- function(s) gsub("<", "&lt;", s)
+
+
+basename <- function(s) sub(".*/", "", s)
 
 
 printJUnitProtocol <- function(testData,
@@ -76,17 +82,19 @@ printJUnitProtocol <- function(testData,
 
         testCaseNode <- xmlNode('testcase',
                                 attrs=c(
-                                  'classname'=testFileName,
-                                  'name'=testFuncName,
+                                  'classname'=basename(testFileName),
+                                  'name'=toValidXmlString(testFuncName),
                                   'time'=testFuncInfo$time))
 
-        if(testFuncInfo$kind != 'success') {
+        if(testFuncInfo$kind %in% c('error', 'failure')) {
           text <- paste('![CDATA[', testFuncInfo$traceBack, ']]', sep='')
-          failureNode <- xmlNode('failure', text,
+          failureNode <- xmlNode(testFuncInfo$kind, text,
                                  attrs=c(
                                    'type'=testFuncInfo$kind,
                                    'message'=testFuncInfo$msg))
           testCaseNode <- addChildren(testCaseNode, kids=list(failureNode))
+        } else if(testFuncInfo$kind == 'deactivated') {
+          testCaseNode <- addChildren(testCaseNode, kids=list(xmlNode('skipped')))
         }
 
         testSuiteNode <- addChildren(testSuiteNode, kids=list(testCaseNode))

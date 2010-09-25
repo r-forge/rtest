@@ -1,4 +1,4 @@
-##  RUnit : A unit test framework for the R programming language
+##  rtest : unit and system testing for R
 ##  Copyright (C) 2003-2010 Thomas Koenig, Matthias Burger, Klaus
 ##  Juenemann, Mario Frasca
 ##

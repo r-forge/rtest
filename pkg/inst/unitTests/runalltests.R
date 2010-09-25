@@ -1,8 +1,8 @@
-library("RUnit")
+library("rtest")
 
 options(warn=1)
 
-testSuite <- defineTestSuite(name="RUnit",
+testSuite <- defineTestSuite(name="rtest",
                             dirs=".",
                             testFileRegexp="runit.*\\.r$",
                             rngKind="default",

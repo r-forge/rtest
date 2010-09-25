@@ -1,4 +1,4 @@
-##  RUnit : A unit test framework for the R programming language
+##  rtest : unit and system testing for R
 ##  Copyright (C) 2003-2009  Thomas Koenig, Matthias Burger, Klaus Juenemann
 ##
 ##  This program is free software; you can redistribute it and/or modify
@@ -178,7 +178,7 @@ printHTML.trackInfo <- function(object, baseDir=".")
   }
   htmlFile <- file.path(path,"index.html")
 
-  footerString <- paste("RUnit ", packageDescription("RUnit", fields="Version"),
+  footerString <- paste("RUnit ", packageDescription("rtest", fields="Version"),
                         as.character(Sys.time()))
   
   ## create index.html

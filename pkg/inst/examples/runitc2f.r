@@ -1,3 +1,5 @@
+##  rtest : unit and system testing for R
+##
 ## This is a very trivial demo  of
 ## the RUnit test case execution system:
 ## ---------------------------------
