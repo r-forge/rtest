@@ -113,6 +113,16 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
     name.in <- extractMatching(lines, "(?<=[\'\"]).*?(?=[\'\"])", preselect=self$name.in.match)
     name.out <- extractMatching(lines, "(?<=[\'\"]).*?(?=[\'\"])", preselect=self$name.out.match)
 
+    if(length(name.in) != 1) {
+      .testLogger$addError(testFuncName=script, paste("can't find the input name."))
+      next
+    }
+
+    if(length(name.out) != 1) {
+      .testLogger$addError(testFuncName=script, paste("can't find the output name."))
+      next
+    }
+
     ## get the basename of the script, without extension
     parts <- strsplit(script, '.', fixed=TRUE)[[1]]
     basename.script <- paste(parts[-length(parts)], collapse='.')
