@@ -145,11 +145,11 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
 
       ## sanity checks
       if(!file.exists(case.in.name)) {
-        .testLogger$addError(paste("input for test case", testName, "not found.  skipping."))
+        .testLogger$addError(script, paste("input for test case", testName, "not found.  skipping."))
         next
       }
       if(!file.exists(case.out.name)) {
-        .testLogger$addError(paste("output for test case", testName, "not found.  skipping."))
+        .testLogger$addError(script, paste("output for test case", testName, "not found.  skipping."))
         next
       }
 
