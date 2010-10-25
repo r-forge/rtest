@@ -17,7 +17,13 @@
 ##  $Id: htmlProtocol.r 4 2010-09-22 09:41:59Z mariotomo $
 
 
-toValidXmlString <- function(s) gsub("<", "&lt;", s)
+toValidXmlString <- function(s) {
+  s <- gsub("<", "&lt;", s)
+  s <- gsub(">", "&gt;", s)
+  s <- gsub('"', "&quot;", s)
+  s <- gsub("'", "&apos;", s)
+  gsub("&", "&amp;", s)
+}
 
 
 basename <- function(s) sub(".*/", "", s)
@@ -91,7 +97,7 @@ printJUnitProtocol <- function(testData,
           failureNode <- xmlNode(testFuncInfo$kind, text,
                                  attrs=c(
                                    'type'=testFuncInfo$kind,
-                                   'message'=testFuncInfo$msg))
+                                   'message'=toValidXmlString(testFuncInfo$msg)))
           testCaseNode <- addChildren(testCaseNode, kids=list(failureNode))
         } else if(testFuncInfo$kind == 'deactivated') {
           testCaseNode <- addChildren(testCaseNode, kids=list(xmlNode('skipped')))
