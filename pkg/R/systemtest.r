@@ -22,18 +22,13 @@ systemTestSuite <- function(name, dirs,
                             rngNormalKind="Kinderman-Ramage",
                             test.dir='../tests/',
                             scripts.regex='.+\\.[rR]$',
-                            case.in.pattern='%S-%T.in',
-                            case.out.pattern='%S-%T.out',
-                            name.in.match='read.PI',
-                            name.out.match='write.PI',
                             ... ) {
   ##@bdescr
   ##  constructor function for system test suites
 
   ret <- baseTestSuite(name, dirs, rngKind, rngNormalKind, 
                        test.dir=test.dir, scripts.regex=scripts.regex,
-                       case.in.pattern=case.in.pattern, case.out.pattern=case.out.pattern,
-                       name.in.match=name.in.match, name.out.match=name.out.match, ...)
+                       ...)
   class(ret) <- c("RSystemTestSuite", class(ret))
   invisible(ret)
 }

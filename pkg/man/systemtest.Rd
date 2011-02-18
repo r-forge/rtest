@@ -25,8 +25,7 @@
 
 \usage{
 systemTestSuite(name, dirs, rngKind, rngNormalKind, test.dir,
- scripts.regex, case.in.pattern, case.out.pattern,
- name.in.match, name.out.match, ...)
+ scripts.regex, ...)
 \method{isValidTestSuite}{RSystemTestSuite}(self)
 }
 
@@ -38,18 +37,8 @@ systemTestSuite(name, dirs, rngKind, rngNormalKind, test.dir,
     for possible options).}
   \item{rngNormalKind}{name of a valid rnorm RNG version (see 
     \code{\link[base:Random]{RNGkind}} for possible options).}
-  \item{test.dir}{}
+  \item{test.dir}{the directory that holds the test cases.}
   \item{scripts.regex}{character: the name of the scripts to test.}
-  \item{case.in.pattern}{character: the format of the test case input
-  file. use `\%S` to indicate the name of the script, use `\%T` to
-  indicate the name of the test case.}
-  \item{case.out.pattern}{character: similar to case.in.pattern`, but
-  for the output file.}
-  \item{name.in.match}{character: a string contained on the line that
-  names the input file. the first matching source line is then scanned
-  for a string. the first string matched is used as input file name.}
-  \item{name.out.match}{character: similar to `name.in.match`, but for
-  the output file.}
   \item{self}{A single object, of class RUnitTestSuite or similar.}
   \item{...}{passed to included functions or for later extensions.}
 }

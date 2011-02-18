@@ -193,7 +193,7 @@ Thomas \enc{König}{Koenig}, Klaus \enc{Jünemann}{Juenemann}
 
 ## run some test suite
 myTestSuite <- defineTestSuite("RUnit Example",
-                               system.file("examples", package = "RUnit"),
+                               system.file("examples", package = "rtest"),
                                testFileRegexp = "correctTestCase.r")
 testResult <- runTestSuite(myTestSuite)
 
