@@ -1,12 +1,12 @@
 Package:      rtest
-Version:      0.5.14
+Version:      0.5.15
 Date:         2010/09/24
 Title:        unit and system testing for R
 Author:       Matthias Burger <burgerm@users.sourceforge.net>, Klaus Juenemann <k.junemann@gmx.net>, Thomas Koenig <thomas.koenig@epigenomics.com>, Mario Frasca <mfrasca@users.sourceforge.net>
 Maintainer:   Mario Frasca <mariotomo@gmail.com>
 LazyLoad:     yes
 Depends:      R (>= 2.5.0), utils (>= 2.5.0), methods (>= 2.5.0), XML (>= 3.1)
-Description:  rtest is a fork from RUnit. it offers the same as RUnit does, plus a simple system test suite.  it provides xml output that makes integration in Hudson, while coverage reports in unit test results are on its way.
+Description:  rtest is a fork from RUnit.  it offers a simple system test suite and this is the only part I really maintain.  it provides xml output that makes integration in Hudson, while coverage reports in unit test results are on its way.
 License:      GPL-2
 URL:          https://r-forge.r-project.org/projects/rtest/
 

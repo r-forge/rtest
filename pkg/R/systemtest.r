@@ -59,8 +59,7 @@ patternToRegex <- function(case.in.pattern, basename.script, testCaseName=NULL, 
 }
 
 isValidTestSuite.RSystemTestSuite <- function(self) {
-  requiredNames <-  c("name", "dirs", "test.dir", "scripts.regex", "case.in.pattern",
-                      "case.out.pattern", "name.in.match","name.out.match",
+  requiredNames <-  c("name", "dirs", "test.dir", "scripts.regex",
                       "rngKind", "rngNormalKind")
   if(!all(requiredNames %in% names(self)))
   {
@@ -89,14 +88,6 @@ isValidTestSuite.RSystemTestSuite <- function(self) {
     warning(paste("length of 'scripts.regex' element must be 1 or match 'dirs'."))
     return(FALSE)
   }
-  if(!(length(self[['case.in.pattern']]) %in% lengths)) {
-    warning(paste("length of 'case.in.pattern' element must be 1 or match 'dirs'."))
-    return(FALSE)
-  }
-  if(!(length(self[['case.out.pattern']]) %in% lengths)) {
-    warning(paste("length of 'case.out.pattern' element must be 1 or match 'dirs'."))
-    return(FALSE)
-  }
   return(TRUE)
 }
 
@@ -108,59 +99,40 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
   for(script in scripts) {
     .testLogger$setCurrentSourceFile(script)
     ## get the expected input and output file names
-    lines <- readLines(script)
     script <- basename(script)
-    name.in <- extractMatching(lines, "(?<=[\'\"]).*?(?=[\'\"])", preselect=self$name.in.match)
-    name.out <- extractMatching(lines, "(?<=[\'\"]).*?(?=[\'\"])", preselect=self$name.out.match)
-
-    if(length(name.in) != 1) {
-      .testLogger$addError(testFuncName=script, paste("can't find the input name."))
-      next
-    }
-
-    if(length(name.out) != 1) {
-      .testLogger$addError(testFuncName=script, paste("can't find the output name."))
-      next
-    }
 
     ## get the basename of the script, without extension
     parts <- strsplit(script, '.', fixed=TRUE)[[1]]
     basename.script <- paste(parts[-length(parts)], collapse='.')
 
-    ## replace the basename in the case.in.pattern and construct the
-    ## corresponding regular expression, for use in list.files
-    case.in.regex <- patternToRegex(self$case.in.pattern, basename.script)
-    testFiles <- list.files(paste(self$dirs, self$test.dir, sep='/'),
-                            pattern=case.in.regex,
-                            full.names=TRUE)
-    if(length(testFiles) == 0) {
+    testDirs <- list.files(paste(self$dirs, self$test.dir, basename.script, sep='/'),
+                           full.names=TRUE)
+
+    if(length(testDirs) == 0) {
       .testLogger$addDeactivated(testFuncName=script)
     } else
-    for(case.in.name in testFiles) {
+    for(caseDir in testDirs) {
       ## preparations
-      case.in.matcher <- patternToRegex(self$case.in.pattern, basename.script, perl=TRUE)
-      testName <- extractMatching(case.in.name, case.in.matcher)
-      case.out.name <- patternToRegex(self$case.out.pattern, basename.script, testName)
-      case.out.name <- paste(self$dirs, self$test.dir, case.out.name, sep='/')
+      testName <- basename(caseDir)
+      testFiles <- list.files(caseDir, recursive=TRUE)
 
       ## sanity checks
-      if(!file.exists(case.in.name)) {
-        .testLogger$addError(script, paste("input for test case", testName, "not found.  skipping."))
-        next
-      }
-      if(!file.exists(case.out.name)) {
-        .testLogger$addError(script, paste("output for test case", testName, "not found.  skipping."))
+      if(length(testFiles) == 0) {
+        .testLogger$addError(script, paste("empty test case", caseDir, "."))
         next
       }
 
       ## copy stuff to expected place
-      file.copy(case.in.name, file.path(self$dirs, name.in), overwrite=TRUE)
+      file.copy(from=caseDir, to=paste(self$dirs, '..', sep='/'), recursive=TRUE)
+      file.rename(from=paste(self$dirs, '..', testName, sep='/'),
+                  to=paste(self$dirs, '..', 'sandbox', sep='/'))
       
       ## execute script in temporary environment
       sandbox <- new.env()
       pwd <- getwd()
       setwd(self$dirs)
-      timing <- try(system.time(sys.source(script, sandbox)))
+      setwd('../sandbox')
+      timing <- try(system.time(sys.source(paste(pwd, self$dirs, script, sep='/'), sandbox)))
       setwd(pwd)
 
       ## check it did not crash
@@ -168,15 +140,17 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
         .testLogger$addError(testFuncName=paste(script, testName, sep=':'),
                              errorMsg=geterrmessage())
       } else {
-        ## check output (name.out compared to case.out.name)
-        target <- readLines(case.out.name)
-        current <- readLines(file.path(self$dirs, name.out))
-        if(any(current != target)) {
-          diff <- which(current != target)
-          msg <- paste(length(diff), " difference(s), namely at lines ", paste(diff, collapse=", "), ". ", sep="")
-          .testLogger$addFailure(testFuncName=testName, failureMsg=msg)
-        } else {
-          .testLogger$addSuccess(testFuncName=testName, secs=round(timing[3], 2))
+        for(targetName in list.files(caseDir, pattern="--expected--*", recursive=TRUE)) {
+          ## check output (name.out compared to case.out.name)
+          target <- readLines(paste(caseDir, targetName, sep='/'))
+          current <- readLines(paste(self$dirs, targetName, sep='/'))
+          if(any(current != target)) {
+            diff <- which(current != target)
+            msg <- paste(length(diff), " difference(s), namely at lines ", paste(diff, collapse=", "), ". ", sep="")
+            .testLogger$addFailure(testFuncName=testName, failureMsg=msg)
+          } else {
+            .testLogger$addSuccess(testFuncName=testName, secs=round(timing[3], 2))
+          }
         }
       }
     }
