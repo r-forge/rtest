@@ -17,6 +17,12 @@
 
 ##  $Id$
 
+file.copy <- function(from, to, overwrite = recursive, recursive = FALSE) {
+  from[substr(from,1,1) == "~"] <- paste(Sys.getenv("HOME"), substring(from, 2)[substr(from,1,1) == "~"], sep='')
+  to[substr(to,1,1) == "~"] <- paste(Sys.getenv("HOME"), substring(to, 2)[substr(to,1,1) == "~"], sep='')
+  base::file.copy(from, to, overwrite, recursive)
+}
+
 systemTestSuite <- function(name, dirs, 
                             rngKind="Marsaglia-Multicarry",
                             rngNormalKind="Kinderman-Ramage",
@@ -106,19 +112,20 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
     if(length(testDirs) == 0) {
       .testLogger$addDeactivated(testFuncName=script)
     } else
-    for(caseDir in testDirs) {
+    for(testDir in testDirs) {
       ## preparations
-      testName <- basename(caseDir)
-      testFiles <- list.files(caseDir, recursive=TRUE)
+      testName <- basename(testDir)
+      testFiles <- list.files(testDir, recursive=TRUE)
 
       ## sanity checks
       if(length(testFiles) == 0) {
-        .testLogger$addError(script, paste("empty test case", caseDir, "."))
+        .testLogger$addError(script, paste("empty test case", testDir, "."))
         next
       }
 
       ## copy stuff to expected place
-      file.copy(from=caseDir, to=paste(self$dirs, '..', sep='/'), recursive=TRUE)
+      unlink(paste(self$dirs, '..', "sandbox", sep='/'), recursive=TRUE)
+      file.copy(from=testDir, to=paste(self$dirs, '..', sep='/'), recursive=TRUE)
       file.rename(from=paste(self$dirs, '..', testName, sep='/'),
                   to=paste(self$dirs, '..', 'sandbox', sep='/'))
       
@@ -135,10 +142,10 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
         .testLogger$addError(testFuncName=paste(script, testName, sep=':'),
                              errorMsg=geterrmessage())
       } else {
-        for(targetName in list.files(caseDir, pattern="--expected--*", recursive=TRUE)) {
+        for(targetName in list.files(testDir, pattern="--expected--*", recursive=TRUE)) {
           ## check output (name.out compared to case.out.name)
-          target <- readLines(paste(caseDir, targetName, sep='/'))
-          current <- readLines(paste(self$dirs, targetName, sep='/'))
+          target <- readLines(paste(testDir, targetName, sep='/'))
+          current <- readLines(paste(self$dirs, '..', 'sandbox', targetName, sep='/'))
           if(any(current != target)) {
             diff <- which(current != target)
             msg <- paste(length(diff), " difference(s), namely at lines ", paste(diff, collapse=", "), ". ", sep="")
@@ -148,6 +155,7 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
           }
         }
       }
+      unlink(paste(self$dirs, '..', "sandbox", sep='/'), recursive=TRUE)
     }
   }
 }
