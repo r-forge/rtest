@@ -98,17 +98,20 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
                         pattern=self$scripts.regex,
                         full.names=TRUE)
   for(script in scripts) {
-    .testLogger$setCurrentSourceFile(script)
     ## get the expected input and output file names
     script <- basename(script)
 
     ## get the basename of the script, without extension
     parts <- strsplit(script, '.', fixed=TRUE)[[1]]
-    basename.script <- paste(parts[-length(parts)], collapse='.')
+    parts <- parts[-length(parts)]
+    basename.script <- paste(parts, collapse='.')
+
+    .testLogger$setCurrentSourceFile(basename.script)
 
     testDirs <- list.files(paste(self$dirs, self$test.dir, basename.script, sep='/'),
                            full.names=TRUE)
-
+    testDirs <- testDirs[file.info(testDirs)$isdir]
+    
     if(length(testDirs) == 0) {
       .testLogger$addDeactivated(testFuncName=script)
     } else
@@ -119,7 +122,7 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
 
       ## sanity checks
       if(length(testFiles) == 0) {
-        .testLogger$addError(script, paste("empty test case", testDir, "."))
+        .testLogger$addError(testName, paste("empty test case ", script, '.', testName, ".", sep=''))
         next
       }
 
@@ -139,8 +142,7 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
 
       ## check it did not crash
       if(inherits(timing, 'try-error')) {
-        .testLogger$addError(testFuncName=paste(script, testName, sep=':'),
-                             errorMsg=geterrmessage())
+        .testLogger$addError(testFuncName=testName, errorMsg=geterrmessage())
       } else {
         for(targetName in list.files(testDir, pattern="--expected--*", recursive=TRUE)) {
           ## check output (name.out compared to case.out.name)

@@ -174,12 +174,13 @@ runTestSuite.RBaseTestSuite <- function(testSuite, ..., useOwnErrorHandler=TRUE,
   for(i in seq_along(inputTestSuite$dirs)) {
     testSuite$name <- paste(inputTestSuite$name, i, sep='.')
     testSuite$dirs <- inputTestSuite$dirs[[i]]
-    if(!isValidTestSuite(testSuite)) {
-      errMsg <- paste("Invalid test suite", testSuite$name, ". Test run skipped.")
-      .testLogger$addError(testSuite$name, errMsg)
-    }
     .testLogger$setCurrentTestSuite(testSuite)
-    runSingleValidTestSuite(testSuite)
+    if(isValidTestSuite(testSuite)) {
+      runSingleValidTestSuite(testSuite)
+    } else {
+      ## errMsg <- paste("Invalid test suite ", testSuite$name, ".  Totally skipped.", sep='')
+      ## .testLogger$addDeactivated(testFuncName=errMsg)
+    }
   }
 
   ret <- .testLogger$getTestData()
