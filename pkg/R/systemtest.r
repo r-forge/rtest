@@ -111,7 +111,7 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
     testDirs <- testDirs[file.info(testDirs)$isdir]
     
     if(length(testDirs) == 0) {
-      .testLogger$addError(testFuncName="(NULL)")
+      .testLogger$addError(testFuncName="(NULL)", "include an empty test case if you want to skip testing this script.")
     } else
     for(testDir in testDirs) {
       ## preparations
