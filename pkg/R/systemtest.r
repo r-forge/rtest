@@ -86,21 +86,25 @@ isValidTestSuite.RSystemTestSuite <- function(self) {
   return(TRUE)
 }
 
+
+
 runSingleValidTestSuite.RSystemTestSuite <- function(self) {
   ## for each script (this means: let's build the vector, and loop)
   scripts <- list.files(self$dirs,
                         pattern=self$scripts.regex,
                         full.names=TRUE)
   for(script in scripts) {
-    ## get the expected input and output file names
-    script <- basename(script)
+
+    ## get the name of the directory containing 'run' containing script
+    container <- basename(dirname(dirname(script)))
 
     ## get the basename of the script, without extension
+    script <- basename(script)
     parts <- strsplit(script, '.', fixed=TRUE)[[1]]
     parts <- parts[-length(parts)]
     basename.script <- paste(parts, collapse='.')
 
-    .testLogger$setCurrentSourceFile(basename.script)
+    .testLogger$setCurrentSourceFile(paste(container, basename.script, sep='.'))
 
     testDirs <- list.files(paste(self$dirs, self$test.dir, basename.script, sep='/'),
                            full.names=TRUE)
