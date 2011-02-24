@@ -17,12 +17,6 @@
 
 ##  $Id$
 
-file.copy <- function(from, to, overwrite = recursive, recursive = FALSE) {
-  from[substr(from,1,1) == "~"] <- paste(Sys.getenv("HOME"), substring(from, 2)[substr(from,1,1) == "~"], sep='')
-  to[substr(to,1,1) == "~"] <- paste(Sys.getenv("HOME"), substring(to, 2)[substr(to,1,1) == "~"], sep='')
-  base::file.copy(from, to, overwrite, recursive)
-}
-
 systemTestSuite <- function(name, dirs, 
                             rngKind="Marsaglia-Multicarry",
                             rngNormalKind="Kinderman-Ramage",
@@ -128,7 +122,7 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
 
       ## copy stuff to expected place
       unlink(paste(self$dirs, '..', "sandbox", sep='/'), recursive=TRUE)
-      file.copy(from=testDir, to=paste(self$dirs, '..', sep='/'), recursive=TRUE)
+      file.copy(from=path.expand(testDir), to=path.expand(paste(self$dirs, '..', sep='/')), recursive=TRUE)
       file.rename(from=paste(self$dirs, '..', testName, sep='/'),
                   to=paste(self$dirs, '..', 'sandbox', sep='/'))
       
