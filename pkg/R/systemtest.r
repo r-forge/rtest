@@ -111,7 +111,7 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
     testDirs <- testDirs[file.info(testDirs)$isdir]
     
     if(length(testDirs) == 0) {
-      .testLogger$addDeactivated(testFuncName=script)
+      .testLogger$addError(testFuncName="(NULL)")
     } else
     for(testDir in testDirs) {
       ## preparations
