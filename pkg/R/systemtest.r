@@ -120,7 +120,7 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
 
       ## sanity checks
       if(length(testFiles) == 0) {
-        .testLogger$addError(testName, paste("empty test case ", script, '.', testName, ".", sep=''))
+        .testLogger$addDeactivated(testName)
         next
       }
 
