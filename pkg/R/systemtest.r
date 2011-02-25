@@ -142,10 +142,11 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
       if(inherits(timing, 'try-error')) {
         .testLogger$addError(testFuncName=testName, errorMsg=geterrmessage())
       } else {
-        for(targetName in list.files(testDir, pattern="--expected--*", recursive=TRUE)) {
+        for(targetName in list.files(testDir, pattern="^--expected--.*", recursive=TRUE)) {
+          currentName <- sub("--expected--", "", targetName)
           ## check output (name.out compared to case.out.name)
           target <- readLines(paste(testDir, targetName, sep='/'))
-          current <- readLines(paste(self$dirs, '..', 'sandbox', targetName, sep='/'))
+          current <- readLines(paste(self$dirs, '..', 'sandbox', currentName, sep='/'))
           if(any(current != target)) {
             diff <- which(current != target)
             msg <- paste(length(diff), " difference(s), namely at lines ", paste(diff, collapse=", "), ". ", sep="")
