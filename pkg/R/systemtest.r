@@ -144,6 +144,10 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
       } else {
         for(targetName in list.files(testDir, pattern="^--expected--.*", recursive=TRUE)) {
           currentName <- sub("--expected--", "", targetName)
+          if(!file.exists(paste(self$dirs, '..', 'sandbox', currentName, sep='/'))) {
+            .testLogger$addFailure(testFuncName=testName, failureMsg=paste(currentName, "not found."))
+            next
+          }
           ## check output (name.out compared to case.out.name)
           target <- readLines(paste(testDir, targetName, sep='/'))
           current <- readLines(paste(self$dirs, '..', 'sandbox', currentName, sep='/'))
