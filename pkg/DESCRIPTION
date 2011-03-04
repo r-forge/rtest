@@ -1,5 +1,5 @@
 Package:      rtest
-Version:      0.5.26
+Version:      0.5.27
 Date:         2011/02/24
 Title:        unit and system testing for R
 Author:       Matthias Burger <burgerm@users.sourceforge.net>, Klaus Juenemann <k.junemann@gmx.net>, Thomas Koenig <thomas.koenig@epigenomics.com>, Mario Frasca <mfrasca@users.sourceforge.net>

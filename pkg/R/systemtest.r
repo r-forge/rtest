@@ -106,13 +106,18 @@ runSingleValidTestSuite.RSystemTestSuite <- function(self) {
 
     .testLogger$setCurrentSourceFile(paste(container, basename.script, sep='.'))
 
-    testDirs <- list.files(paste(self$dirs, self$test.dir, basename.script, sep='/'),
-                           full.names=TRUE)
+    testDirContainer <- paste(self$dirs, self$test.dir, basename.script, sep='/')
+    if (!file.exists(testDirContainer)) {
+      .testLogger$addError(testFuncName="(NULL)", "include an empty tests container to ignore this script.")
+      next
+    }
+
+    testDirs <- list.files(testDirContainer, full.names=TRUE)
     testDirs <- testDirs[file.info(testDirs)$isdir]
     
-    if(length(testDirs) == 0) {
-      .testLogger$addError(testFuncName="(NULL)", "include an empty test case if you want to skip testing this script.")
-    } else
+    if(length(testDirs) == 0)
+      next
+    
     for(testDir in testDirs) {
       ## preparations
       testName <- basename(testDir)
